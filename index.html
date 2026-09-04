@@ -148,7 +148,22 @@ a:hover{ color:var(--gold-lift); }
 }
 
 .lead{ font-size:var(--t-lead); line-height:1.8; }
-.section{ padding:var(--sec-y) var(--pad-x); scroll-margin-top:76px; }
+.section{ position:relative; padding:var(--sec-y) var(--pad-x); scroll-margin-top:76px; }
+
+/* The gold seam closes every section. It draws left to right the first time it
+   scrolls into view, then stays. */
+.seam{
+  position:absolute; z-index:6; left:0; right:0; bottom:0;
+  display:block; height:var(--edge); overflow:hidden;
+}
+/* The bar inside does the moving — the observed .seam must keep its area, or
+   IntersectionObserver never reports a zero-width element as visible. */
+.seam::before{
+  content:""; position:absolute; inset:0; background:var(--gold);
+  transform:scaleX(0); transform-origin:left center;
+  transition:transform 950ms var(--ease-in-out);
+}
+.seam[data-on="1"]::before{ transform:scaleX(1); }
 .section--tint{ background:var(--cream); }
 .section--dark{ background:var(--navy); }
 
@@ -185,8 +200,8 @@ a:hover{ color:var(--gold-lift); }
   height:100vh; height:100dvh; min-height:560px;
   overflow:hidden;
   background:radial-gradient(120% 90% at 78% 8%, var(--white) 0%, var(--cream) 52%, var(--cream-2) 100%);
-  border-bottom:var(--edge) solid var(--gold);
 }
+.hero .seam::before{ transition-delay:calc(2.15s * var(--stage)); }
 .hero__sky{
   position:absolute; z-index:1; top:0; right:-2vw; height:100%;
   width:63vw; min-width:520px; overflow:hidden;
@@ -204,7 +219,7 @@ a:hover{ color:var(--gold-lift); }
 }
 
 .hero__brand{
-  position:absolute; z-index:3; right:58.5vw; bottom:132px;
+  position:absolute; z-index:3; left:var(--pad-x); bottom:130px;
   width:36vw; min-width:240px; max-width:560px;
   margin:0;
 }
@@ -214,34 +229,12 @@ a:hover{ color:var(--gold-lift); }
 }
 
 .hero__tagline{
-  position:absolute; z-index:4; left:var(--pad-x); bottom:76px;
+  position:absolute; z-index:4; left:var(--pad-x); bottom:70px;
   max-width:min(40vw,460px);
   font-family:var(--display); font-weight:300; font-style:normal;
   font-size:var(--t-hero); line-height:1.24; letter-spacing:.015em;
   color:var(--ink); text-wrap:pretty;
 }
-
-.hero__cue{
-  position:absolute; z-index:4; left:var(--pad-x); bottom:28px;
-  display:flex; align-items:center; gap:9px;
-  font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-muted);
-  transition:opacity var(--d-change) var(--ease-out);
-}
-.hero__cue svg{ stroke:var(--gold); }
-.hero__cue[data-gone="1"]{ opacity:0; pointer-events:none; }
-
-.hero__replay{
-  position:absolute; z-index:5; right:var(--pad-x); bottom:26px;
-  padding:9px 18px;
-  background:rgba(250,249,246,.92); backdrop-filter:blur(6px);
-  border:1px solid rgba(34,44,69,.32); color:var(--ink);
-  font-family:var(--body); font-size:10px; letter-spacing:.24em; text-transform:uppercase;
-  cursor:pointer;
-  transition:border-color var(--d-hover) var(--ease-out),
-             color var(--d-hover) var(--ease-out),
-             background var(--d-hover) var(--ease-out);
-}
-.hero__replay:hover{ border-color:var(--gold); color:var(--gold); background:var(--white); }
 
 /* ── hero stage animation ──────────────────────────────────── */
 /* The nav must keep its centring translate while the drop plays. */
@@ -263,19 +256,12 @@ a:hover{ color:var(--gold-lift); }
   0%  { transform:translate3d(0,14px,0); opacity:0; }
   100%{ transform:translate3d(0,0,0); opacity:1; }
 }
-@keyframes scCueBob{
-  0%,100%{ transform:translateY(0); }
-  50%    { transform:translateY(5px); }
-}
 
 .hero__sky,
 .hero__building{ animation:scBuildingIn calc(1.6s * var(--stage)) var(--ease-stage) both; }
 .hero__brand img{ animation:scBrandOut calc(1.45s * var(--stage)) var(--ease-stage) calc(.95s * var(--stage)) both; }
 .nav{ animation:scNavDrop calc(.85s * var(--stage)) var(--ease-out) calc(2.05s * var(--stage)) both; }
 .hero__tagline{ animation:scFadeUp calc(1.1s * var(--stage)) var(--ease-out) calc(2.5s * var(--stage)) both; }
-.hero__replay{ animation:scFadeUp calc(.9s * var(--stage)) var(--ease-out) calc(2.7s * var(--stage)) both; }
-.hero__cue{ animation:scFadeUp calc(.9s * var(--stage)) var(--ease-out) calc(2.9s * var(--stage)) both; }
-.hero__cue svg{ animation:scCueBob 2.4s var(--ease-in-out) calc(3.6s * var(--stage)) infinite; }
 
 /* ── welcome ───────────────────────────────────────────────── */
 .welcome{ text-align:center; }
@@ -297,8 +283,9 @@ a:hover{ color:var(--gold-lift); }
 
 /* ── statement band ────────────────────────────────────────── */
 .band{
+  position:relative;
   background:var(--navy-2); padding:var(--sec-y-sm) var(--pad-x);
-  text-align:center; border-top:1px solid rgba(255,255,255,.06);
+  text-align:center;
 }
 .band p{ max-width:760px; margin-inline:auto; font-size:var(--t-lead); line-height:1.8; color:var(--mist); }
 .band__close{
@@ -437,12 +424,12 @@ textarea.field{ resize:vertical; min-height:96px; }
 
 /* ── footer ────────────────────────────────────────────────── */
 .foot{
-  background:var(--navy-2); padding:0 var(--pad-x) 34px;
+  background:var(--navy-2); padding:0 var(--pad-x) 40px;
   position:relative; z-index:1;
 }
 .foot__inner{
   max-width:1080px; margin-inline:auto;
-  padding-top:22px; border-top:1px solid var(--slate); text-align:center;
+  padding-top:30px; text-align:center;
 }
 .foot p{ font-size:11px; line-height:1.65; color:var(--mist); }
 .foot p + p{ margin-top:12px; }
@@ -478,7 +465,7 @@ textarea.field{ resize:vertical; min-height:96px; }
      tagline in flow, and let the building rise out of the bottom edge instead. */
   .hero{
     min-height:620px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
     padding:14vh var(--pad-x) 36vh;
   }
   .hero__sky{ display:none; }
@@ -493,11 +480,9 @@ textarea.field{ resize:vertical; min-height:96px; }
   .hero__tagline{
     position:relative; z-index:3;
     left:auto; right:auto; bottom:auto;
-    margin-top:22px; max-width:none; text-align:center;
+    margin-top:22px; max-width:none; text-align:left;
     font-size:clamp(19px,5.4vw,27px);
   }
-  .hero__replay{ bottom:18px; }
-  .hero__cue{ display:none; }
 }
 
 @media (max-width:640px){
@@ -518,10 +503,8 @@ textarea.field{ resize:vertical; min-height:96px; }
   .hero__brand img,
   .nav,
   .hero__tagline,
-  .hero__replay,
-  .hero__cue,
-  .hero__cue svg,
   .contact__grid-bg{ animation:none !important; }
+  .seam::before{ transform:scaleX(1) !important; transition:none !important; }
   .nav{ transform:translateX(-50%); opacity:1; }
   .card:hover,
   .btn:hover,
@@ -556,17 +539,12 @@ textarea.field{ resize:vertical; min-height:96px; }
          alt="Rouxcor House, 20 Herold Street, Stellenbosch" width="1400" height="933" fetchpriority="high">
 
     <h1 class="hero__brand">
-      <img src="assets/wordmark.webp" alt="Staytus Collection" width="1100" height="379">
+      <img src="assets/wordmark.webp" alt="Staytus Collection" width="1100" height="370">
     </h1>
 
     <p class="hero__tagline">A Distinctive Approach<br>to Property Development</p>
 
-    <div class="hero__cue" id="cue" aria-hidden="true">
-      <span>Scroll</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 5v14"></path><path d="M5 12l7 7 7-7"></path></svg>
-    </div>
-
-    <button class="hero__replay" id="replay" type="button">Replay</button>
+    <i class="seam" aria-hidden="true"></i>
   </section>
 
   <!-- ── WELCOME ──────────────────────────────────────────── -->
@@ -584,12 +562,14 @@ textarea.field{ resize:vertical; min-height:96px; }
 
       <p class="welcome__group">Staytus Collection is part of the Rouxcor Group of Companies.</p>
     </div>
+    <i class="seam" aria-hidden="true"></i>
   </section>
 
   <!-- ── STATEMENT BAND ───────────────────────────────────── -->
   <section class="band" aria-label="Our commitment">
     <p>Choose STAYTUS for a development experience that goes beyond the ordinary, where innovation, passion, and a commitment to lasting beauty define every project.</p>
     <p class="band__close">Welcome to a realm where properties and lifestyles are crafted for a lifetime.</p>
+    <i class="seam" aria-hidden="true"></i>
   </section>
 
   <!-- ── WHAT WE OFFER ────────────────────────────────────── -->
@@ -661,6 +641,7 @@ textarea.field{ resize:vertical; min-height:96px; }
 
       </div>
     </div>
+    <i class="seam" aria-hidden="true"></i>
   </section>
 
   <!-- ── PORTFOLIO ────────────────────────────────────────── -->
@@ -700,6 +681,7 @@ textarea.field{ resize:vertical; min-height:96px; }
 
       </div>
     </div>
+    <i class="seam" aria-hidden="true"></i>
   </section>
 
   <!-- ── CONTACT ──────────────────────────────────────────── -->
@@ -757,6 +739,7 @@ textarea.field{ resize:vertical; min-height:96px; }
 
       </div>
     </div>
+    <i class="seam" aria-hidden="true"></i>
   </section>
 
 </main>
@@ -767,6 +750,7 @@ textarea.field{ resize:vertical; min-height:96px; }
     <p>© Staytus Collection. 2025 All rights reserved</p>
     <p class="foot__concept">Concept demo — STB Studios</p>
   </div>
+  <i class="seam" aria-hidden="true"></i>
 </footer>
 
 <button class="totop" id="totop" type="button" aria-label="Back to top">
@@ -798,25 +782,14 @@ textarea.field{ resize:vertical; min-height:96px; }
 (function () {
   'use strict';
 
-  var root   = document.documentElement;
-  var calm   = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var SPEED  = 0.75;           // designed stage speed
-  var LOCK   = 3000 * SPEED;   // hold the page still while the hero plays
-  var SEEN   = 'sc_hero_seen_v1';
+  var root  = document.documentElement;
+  var calm  = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var SPEED = 0.75;           // designed stage speed
+  var LOCK  = 3000 * SPEED;   // hold the page still while the hero plays
 
   /* ── hero stage ─────────────────────────────────────────── */
-  var hero    = document.querySelector('.hero');
-  var replay  = document.getElementById('replay');
-  var cue     = document.getElementById('cue');
-  var locked  = false;
-  var timer   = null;
-
-  function seen() {
-    try { return sessionStorage.getItem(SEEN) === '1'; } catch (e) { return false; }
-  }
-  function markSeen() {
-    try { sessionStorage.setItem(SEEN, '1'); } catch (e) {}
-  }
+  var locked = false;
+  var timer  = null;
 
   var block     = function (e) { e.preventDefault(); };
   var blockKeys = function (e) {
@@ -834,37 +807,38 @@ textarea.field{ resize:vertical; min-height:96px; }
     window[fn]('keydown', blockKeys, { passive: false });
   }
 
-  function play(instant) {
-    clearTimeout(timer);
-    root.style.setProperty('--stage', instant ? '0.001' : String(SPEED));
-    if (instant) { lock(false); return; }
+  if (calm.matches) {
+    root.style.setProperty('--stage', '0.001');   // settled pose, no hold
+  } else {
+    root.style.setProperty('--stage', String(SPEED));
     window.scrollTo(0, 0);
     lock(true);
     timer = setTimeout(function () { lock(false); }, LOCK);
   }
-
-  // Restart the CSS animations by cloning the hero's class state.
-  function restart() {
-    window.scrollTo(0, 0);
-    hero.querySelectorAll('.hero__sky, .hero__building, .hero__brand img, .hero__tagline, .hero__replay, .hero__cue')
-      .forEach(function (el) {
-        var a = el.style.animation;
-        el.style.animation = 'none';
-        void el.offsetWidth;              // force reflow so the animation re-runs
-        el.style.animation = a || '';
-      });
-    if (cue) cue.dataset.gone = '0';
-    play(false);
-  }
-
-  play(calm.matches || seen());
-  markSeen();
-
-  if (replay) replay.addEventListener('click', restart);
-  // A safety net: any deliberate click frees the page even if a timer is lost.
+  // Safety net: any deliberate click frees the page even if the timer is lost.
   window.addEventListener('pointerdown', function () { if (locked) lock(false); }, true);
 
-  /* ── scroll-driven chrome ───────────────────────────────── */
+  /* ── gold seams draw left to right as they scroll in ────── */
+  var seams = [].slice.call(document.querySelectorAll('.seam'));
+
+  if (calm.matches || !('IntersectionObserver' in window)) {
+    seams.forEach(function (el) { el.dataset.on = '1'; });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.dataset.on = '1';
+        io.unobserve(en.target);          // draws once, then stays
+      });
+    });
+    // No negative bottom margin: a seam sits on its section's last pixel row, and
+    // the footer's is the last row of the document — anything inset would never
+    // reach it. Each line draws as it crosses the bottom edge and keeps drawing
+    // while it travels up.
+    seams.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ── back to top ────────────────────────────────────────── */
   var totop = document.getElementById('totop');
   var ticking = false;
 
@@ -874,7 +848,6 @@ textarea.field{ resize:vertical; min-height:96px; }
     requestAnimationFrame(function () {
       var y = window.scrollY || root.scrollTop || 0;
       totop.dataset.on = y > 400 ? '1' : '0';
-      if (cue) cue.dataset.gone = y > 40 ? '1' : '0';
       ticking = false;
     });
   }

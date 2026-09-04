@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staytus Collection — Property Development &amp; Investment, Stellenbosch</title>
+<meta name="description" content="Staytus Collection is a Stellenbosch-based property development and investment company delivering residential, mixed-use, hospitality and strategic real estate projects across the Cape Winelands.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#222C45">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Staytus Collection — A Distinctive Approach to Property Development">
+<meta property="og:description" content="Stellenbosch-based property development and investment. 50 years combined experience across residential, mixed-use, hospitality and strategic real estate.">
+<meta property="og:image" content="https://zubairthecreator.github.io/staytus-collection-demo/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/building.webp">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Tokens — every colour, size, space and duration binds here.
+   Brand: Staytus Collection. Navy #222C45 + one gold accent.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  /* surfaces */
+  --navy:        #222C45;
+  --navy-2:      #394258;
+  --slate:       #4F576B;
+  --field:       #2F3750;
+  --cream:       #FAF9F6;
+  --cream-2:     #F1EEE7;
+  --mist:        #C8CACE;
+  --white:       #FFFFFF;
+
+  /* ink */
+  --ink:         #222C45;
+  --ink-body:    #3A3F4D;
+  --ink-card:    #2B3040;
+  --ink-muted:   #6B7386;
+
+  /* accent — one gold, one job per region */
+  --gold:        #D2A83E;
+  --gold-lift:   #E8C05C;
+  --gold-hair:   rgba(210,168,62,.35);
+  --gold-grid:   rgba(210,168,62,.12);
+  --navy-hair:   rgba(34,44,69,.10);
+
+  /* type */
+  --display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --body:    'Work Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  --t-hero:    clamp(19px, 2.15vw, 34px);
+  --t-h2:      clamp(26px, 3.1vw, 40px);
+  --t-h3:      clamp(20px, 1.7vw, 24px);
+  --t-lead:    clamp(16px, 1.15vw, 17.5px);
+  --t-body:    15.5px;
+  --t-small:   13.5px;
+  --t-eyebrow: 13px;
+
+  /* space */
+  --wrap:      1180px;
+  --wrap-text: 820px;
+  --pad-x:     clamp(20px, 5vw, 40px);
+  --sec-y:     clamp(64px, 9vw, 118px);
+  --sec-y-sm:  clamp(48px, 7vw, 88px);
+  --gap:       clamp(24px, 2.4vw, 32px);
+
+  /* line */
+  --rule:      2px;
+  --edge:      4px;
+
+  /* elevation */
+  --lift-card:  0 18px 40px -22px rgba(16,20,31,.45);
+  --lift-gold:  0 10px 24px -10px rgba(210,168,62,.55);
+  --lift-float: 0 6px 18px rgba(16,20,31,.32);
+
+  /* motion — curves from the package motion spec */
+  --ease-out:    cubic-bezier(.23,1,.32,1);
+  --ease-in-out: cubic-bezier(.77,0,.175,1);
+  --ease-stage:  cubic-bezier(.16,1,.3,1);
+  --d-hover:     160ms;
+  --d-change:    300ms;
+
+  /* hero stage clock — 1 = designed speed */
+  --stage: .75;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{
+  scroll-behavior:smooth;
+  overflow-y:scroll;
+  scrollbar-width:thin;
+  scrollbar-color:var(--navy-hair) transparent;
+}
+::-webkit-scrollbar{ width:10px; background:transparent; }
+::-webkit-scrollbar-thumb{
+  background:rgba(34,44,69,.20); border-radius:999px;
+  border:3px solid transparent; background-clip:content-box;
+}
+::-webkit-scrollbar-thumb:hover{ background:rgba(34,44,69,.36); background-clip:content-box; }
+
+body{
+  margin:0; max-width:100%; overflow-x:hidden;
+  background:var(--cream); color:var(--ink-body);
+  font-family:var(--body); font-size:var(--t-body); font-weight:400;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+
+img{ max-width:100%; }
+p{ margin:0; }
+
+a{ color:var(--gold); text-decoration:none; transition:color var(--d-hover) var(--ease-out); }
+a:hover{ color:var(--gold-lift); }
+
+:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:100;
+  background:var(--navy); color:var(--white);
+  padding:12px 18px; font-size:var(--t-small); letter-spacing:.12em; text-transform:uppercase;
+}
+.skip:focus{ left:12px; top:12px; color:var(--white); }
+
+/* ── shared type ───────────────────────────────────────────── */
+.wrap{ width:100%; max-width:var(--wrap); margin-inline:auto; }
+.wrap--text{ max-width:var(--wrap-text); }
+
+.eyebrow{
+  margin:0; font-family:var(--body); font-size:var(--t-eyebrow); font-weight:600;
+  letter-spacing:.19em; text-transform:uppercase; line-height:1.3;
+}
+.eyebrow--ink{ color:var(--ink); }
+.eyebrow--gold{ color:var(--gold); }
+.eyebrow--mist{ color:var(--mist); }
+
+.rule{ width:64px; height:var(--rule); background:var(--gold); border:0; margin:16px 0 0; }
+.rule--center{ margin-inline:auto; }
+
+.display{
+  margin:0; font-family:var(--display); font-weight:400; font-style:italic;
+  font-size:var(--t-h2); line-height:1.15; letter-spacing:.005em;
+}
+
+.lead{ font-size:var(--t-lead); line-height:1.8; }
+.section{ padding:var(--sec-y) var(--pad-x); scroll-margin-top:76px; }
+.section--tint{ background:var(--cream); }
+.section--dark{ background:var(--navy); }
+
+/* ── site header ───────────────────────────────────────────── */
+.nav{
+  position:fixed; top:16px; left:50%; z-index:50;
+  transform:translateX(-50%);
+  display:flex; align-items:center; gap:clamp(14px,2.4vw,28px);
+  max-width:calc(100vw - 24px);
+  padding:9px 22px;
+  background:rgba(34,44,69,.86);
+  border:1px solid var(--gold-hair);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  box-shadow:var(--lift-float);
+}
+.nav__mark{ width:22px; height:auto; display:block; flex-shrink:0; }
+.nav nav{ display:flex; align-items:center; gap:clamp(14px,2.4vw,28px); }
+.nav__link{
+  position:relative; padding:3px 0;
+  font-size:11px; letter-spacing:.11em; color:var(--white); white-space:nowrap;
+}
+.nav__link::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:1px;
+  background:var(--gold); transform:scaleX(0); transform-origin:left;
+  transition:transform var(--d-hover) var(--ease-out);
+}
+.nav__link:hover{ color:var(--white); }
+.nav__link:hover::after,
+.nav__link:focus-visible::after{ transform:scaleX(1); }
+
+/* ── hero ──────────────────────────────────────────────────── */
+.hero{
+  position:relative; width:100%;
+  height:100vh; height:100dvh; min-height:560px;
+  overflow:hidden;
+  background:radial-gradient(120% 90% at 78% 8%, var(--white) 0%, var(--cream) 52%, var(--cream-2) 100%);
+  border-bottom:var(--edge) solid var(--gold);
+}
+.hero__sky{
+  position:absolute; z-index:1; top:0; right:-2vw; height:100%;
+  width:63vw; min-width:520px; overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.5) 16%,#000 34%),
+                     linear-gradient(to bottom,transparent 0%,#000 22%,#000 74%,transparent 100%);
+          mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.5) 16%,#000 34%),
+                     linear-gradient(to bottom,transparent 0%,#000 22%,#000 74%,transparent 100%);
+  -webkit-mask-composite:source-in; mask-composite:intersect;
+}
+.hero__sky img{ display:block; width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
+
+.hero__building{
+  position:absolute; z-index:2; right:-2vw; bottom:0;
+  width:63vw; min-width:520px; height:auto;
+}
+
+.hero__brand{
+  position:absolute; z-index:3; right:58.5vw; bottom:132px;
+  width:36vw; min-width:240px; max-width:560px;
+  margin:0;
+}
+.hero__brand img{
+  display:block; width:100%; height:auto;
+  filter:drop-shadow(0 10px 24px rgba(34,44,69,.18));
+}
+
+.hero__tagline{
+  position:absolute; z-index:4; left:var(--pad-x); bottom:76px;
+  max-width:min(40vw,460px);
+  font-family:var(--display); font-weight:300; font-style:normal;
+  font-size:var(--t-hero); line-height:1.24; letter-spacing:.015em;
+  color:var(--ink); text-wrap:pretty;
+}
+
+.hero__cue{
+  position:absolute; z-index:4; left:var(--pad-x); bottom:28px;
+  display:flex; align-items:center; gap:9px;
+  font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-muted);
+  transition:opacity var(--d-change) var(--ease-out);
+}
+.hero__cue svg{ stroke:var(--gold); }
+.hero__cue[data-gone="1"]{ opacity:0; pointer-events:none; }
+
+.hero__replay{
+  position:absolute; z-index:5; right:var(--pad-x); bottom:26px;
+  padding:9px 18px;
+  background:rgba(250,249,246,.92); backdrop-filter:blur(6px);
+  border:1px solid rgba(34,44,69,.32); color:var(--ink);
+  font-family:var(--body); font-size:10px; letter-spacing:.24em; text-transform:uppercase;
+  cursor:pointer;
+  transition:border-color var(--d-hover) var(--ease-out),
+             color var(--d-hover) var(--ease-out),
+             background var(--d-hover) var(--ease-out);
+}
+.hero__replay:hover{ border-color:var(--gold); color:var(--gold); background:var(--white); }
+
+/* ── hero stage animation ──────────────────────────────────── */
+/* The nav must keep its centring translate while the drop plays. */
+@keyframes scNavDrop{
+  0%  { transform:translate(-50%,-140%); opacity:0; }
+  100%{ transform:translate(-50%,0); opacity:1; }
+}
+@keyframes scBuildingIn{
+  0%  { transform:translate3d(-118%,0,0) scale(1.04); opacity:0; }
+  18% { opacity:1; }
+  100%{ transform:translate3d(0,0,0) scale(1); opacity:1; }
+}
+@keyframes scBrandOut{
+  0%  { transform:translate3d(46vw,3vh,0) scale(.94); opacity:0; }
+  12% { opacity:1; }
+  100%{ transform:translate3d(0,0,0) scale(1); opacity:1; }
+}
+@keyframes scFadeUp{
+  0%  { transform:translate3d(0,14px,0); opacity:0; }
+  100%{ transform:translate3d(0,0,0); opacity:1; }
+}
+@keyframes scCueBob{
+  0%,100%{ transform:translateY(0); }
+  50%    { transform:translateY(5px); }
+}
+
+.hero__sky,
+.hero__building{ animation:scBuildingIn calc(1.6s * var(--stage)) var(--ease-stage) both; }
+.hero__brand img{ animation:scBrandOut calc(1.45s * var(--stage)) var(--ease-stage) calc(.95s * var(--stage)) both; }
+.nav{ animation:scNavDrop calc(.85s * var(--stage)) var(--ease-out) calc(2.05s * var(--stage)) both; }
+.hero__tagline{ animation:scFadeUp calc(1.1s * var(--stage)) var(--ease-out) calc(2.5s * var(--stage)) both; }
+.hero__replay{ animation:scFadeUp calc(.9s * var(--stage)) var(--ease-out) calc(2.7s * var(--stage)) both; }
+.hero__cue{ animation:scFadeUp calc(.9s * var(--stage)) var(--ease-out) calc(2.9s * var(--stage)) both; }
+.hero__cue svg{ animation:scCueBob 2.4s var(--ease-in-out) calc(3.6s * var(--stage)) infinite; }
+
+/* ── welcome ───────────────────────────────────────────────── */
+.welcome{ text-align:center; }
+.welcome__h2{ margin-top:18px; color:var(--gold); }
+.welcome__lead{
+  margin-top:26px; margin-inline:auto; max-width:var(--wrap-text);
+  color:var(--ink-body); text-align:left; text-wrap:pretty;
+}
+.welcome__cols{
+  max-width:1080px; margin:52px auto 0;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:40px; text-align:left;
+}
+.welcome__cols p{ font-size:var(--t-body); line-height:1.8; color:var(--ink-body); }
+.welcome__group{
+  max-width:var(--wrap-text); margin:44px auto 0;
+  font-family:var(--display); font-style:italic; font-size:23px; color:var(--ink);
+}
+
+/* ── statement band ────────────────────────────────────────── */
+.band{
+  background:var(--navy-2); padding:var(--sec-y-sm) var(--pad-x);
+  text-align:center; border-top:1px solid rgba(255,255,255,.06);
+}
+.band p{ max-width:760px; margin-inline:auto; font-size:var(--t-lead); line-height:1.8; color:var(--mist); }
+.band__close{
+  margin-top:20px; font-family:var(--display); font-weight:400; font-style:normal;
+  font-size:clamp(25px,3vw,38px); line-height:1.28; color:var(--white);
+}
+
+/* ── what we offer ─────────────────────────────────────────── */
+.offer__team{
+  margin-top:48px; display:grid; grid-template-columns:minmax(220px,320px) 1fr;
+  gap:48px; align-items:center; scroll-margin-top:96px;
+}
+.offer__badge{ display:flex; align-items:center; gap:20px; }
+.offer__seal{
+  width:96px; height:96px; border-radius:50%; border:2px solid var(--gold);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden;
+}
+.offer__seal img{ width:62%; height:62%; object-fit:contain; }
+.offer__years{ font-family:var(--display); font-size:34px; line-height:1.1; color:var(--gold); }
+.offer__years-label{ margin-top:5px; font-size:12px; letter-spacing:.15em; color:var(--mist); }
+.offer__claim{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(21px,2.3vw,29px); line-height:1.55; color:var(--white);
+}
+.offer__claim em{ font-style:normal; color:var(--gold); }
+
+.grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:var(--gap); }
+.offer__grid{ margin-top:64px; }
+
+.card{ display:flex; flex-direction:column; border-top:3px solid var(--gold); transition:transform var(--d-change) var(--ease-out); }
+.card:hover{ transform:translateY(-3px); }
+.card__head{ position:relative; background:var(--slate); padding:28px 26px; }
+.card__head svg{ stroke:var(--gold); }
+.card__chev{ position:absolute; top:24px; right:22px; }
+.card__title{
+  margin:16px 0 0; font-family:var(--display); font-weight:400;
+  font-size:var(--t-h3); line-height:1.25; color:var(--white); letter-spacing:.01em;
+}
+.card__body{ background:var(--mist); padding:26px; flex:1; }
+.card__body p{ font-size:14.5px; line-height:1.75; color:var(--ink-card); }
+.card__body p + p{ margin-top:14px; }
+
+/* ── portfolio ─────────────────────────────────────────────── */
+.portfolio{ text-align:center; }
+.portfolio__h2{ margin-top:18px; color:var(--ink); }
+.portfolio__grid{ margin-top:56px; text-align:left; }
+
+.pcard__head{ background:var(--slate); padding:14px 20px; }
+.pcard__title{
+  margin:0; font-family:var(--display); font-weight:400; font-size:19px; color:var(--white); letter-spacing:.01em;
+}
+.pcard__slot{
+  position:relative; width:100%; aspect-ratio:4/3; overflow:hidden;
+  background:var(--navy);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+}
+.pcard__slot::before{
+  content:""; position:absolute; inset:0;
+  background-image:linear-gradient(var(--gold-grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--gold-grid) 1px,transparent 1px);
+  background-size:36px 36px;
+}
+.pcard__slot img{ position:relative; width:52px; opacity:.32; }
+.pcard__slot span{
+  position:relative; font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--mist);
+}
+.pcard__body{ background:var(--mist); padding:18px 20px; flex:1; }
+.pcard__body p{ font-size:14px; color:var(--ink-card); }
+
+/* ── contact ───────────────────────────────────────────────── */
+.contact{
+  position:relative; overflow:hidden;
+  background:var(--navy-2); padding:var(--sec-y-sm) var(--pad-x) 40px;
+  scroll-margin-top:76px;
+}
+.contact__grid-bg{
+  position:absolute; inset:0; pointer-events:none;
+  background-image:linear-gradient(var(--gold-grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--gold-grid) 1px,transparent 1px);
+  background-size:48px 48px;
+  animation:gridDrift 18s linear infinite;
+}
+@keyframes gridDrift{ from{ background-position:0 0; } to{ background-position:48px 48px; } }
+
+.contact__inner{ position:relative; z-index:1; max-width:1080px; margin-inline:auto; }
+.contact__head{ text-align:center; }
+.contact__h2{ margin-top:14px; color:var(--white); font-style:normal; }
+.contact__sub{ margin-top:10px; font-size:var(--t-small); letter-spacing:.04em; color:var(--gold); }
+
+.contact__cols{
+  margin-top:40px; display:grid;
+  grid-template-columns:minmax(240px,1fr) minmax(300px,1.35fr); gap:44px;
+}
+.reach{ display:flex; gap:12px; align-items:flex-start; margin-top:14px; }
+.reach__icon{
+  width:28px; height:28px; border-radius:50%; border:1px solid var(--gold);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.reach__icon svg{ stroke:var(--gold); }
+.reach__text{ font-size:var(--t-small); line-height:1.6; color:var(--white); }
+.reach a.reach__text:hover{ color:var(--gold-lift); }
+.reach__tel{ font-family:var(--display); font-size:24px; letter-spacing:.02em; color:var(--gold); }
+.reach__tel:hover{ color:var(--gold-lift); }
+.contact__note{ margin-top:16px; font-size:var(--t-small); line-height:1.7; color:var(--mist); }
+
+.form{ display:flex; flex-direction:column; gap:12px; width:100%; }
+.vh{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+.field{
+  width:100%; background:var(--field); border:1px solid var(--slate); color:var(--white);
+  padding:12px 14px; font-family:var(--body); font-size:14px; outline:none;
+  transition:border-color var(--d-hover) var(--ease-out), background var(--d-hover) var(--ease-out);
+}
+.field::placeholder{ color:rgba(255,255,255,.46); }
+.field:hover{ border-color:var(--gold-hair); }
+.field:focus{ border-color:var(--gold); background:#333C57; }
+textarea.field{ resize:vertical; min-height:96px; }
+
+.btn{
+  align-self:flex-start; border:none; cursor:pointer;
+  background:var(--gold); color:var(--navy);
+  font-family:var(--body); font-weight:600; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+  padding:13px 28px;
+  transition:transform var(--d-hover) var(--ease-out),
+             box-shadow var(--d-hover) var(--ease-out),
+             background var(--d-hover) var(--ease-out);
+}
+.btn:hover{ background:var(--gold-lift); transform:translateY(-2px); box-shadow:var(--lift-gold); }
+.btn:active{ transform:scale(.97); }
+
+.form__status{
+  min-height:18px; font-size:12px; letter-spacing:.05em; color:var(--mist);
+}
+
+/* ── footer ────────────────────────────────────────────────── */
+.foot{
+  background:var(--navy-2); padding:0 var(--pad-x) 34px;
+  position:relative; z-index:1;
+}
+.foot__inner{
+  max-width:1080px; margin-inline:auto;
+  padding-top:22px; border-top:1px solid var(--slate); text-align:center;
+}
+.foot p{ font-size:11px; line-height:1.65; color:var(--mist); }
+.foot p + p{ margin-top:12px; }
+.foot__concept{
+  margin-top:16px; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-muted);
+}
+
+/* ── back to top ───────────────────────────────────────────── */
+.totop{
+  position:fixed; right:24px; bottom:24px; z-index:50;
+  width:48px; height:48px; border-radius:50%; border:none;
+  background:var(--gold); color:var(--navy);
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  box-shadow:var(--lift-float);
+  opacity:0; pointer-events:none;
+  transition:opacity var(--d-change) var(--ease-out),
+             transform var(--d-hover) var(--ease-out),
+             box-shadow var(--d-hover) var(--ease-out);
+}
+.totop[data-on="1"]{ opacity:1; pointer-events:auto; }
+.totop:hover{ transform:translateY(-2px); box-shadow:var(--lift-gold); }
+.totop:active{ transform:scale(.97); }
+.totop svg{ stroke:var(--navy); }
+
+/* ── responsive ────────────────────────────────────────────── */
+@media (max-width:1080px){
+  .offer__team{ grid-template-columns:1fr; gap:28px; }
+  .contact__cols{ grid-template-columns:1fr; gap:36px; }
+}
+
+@media (max-width:860px){
+  /* Narrow screens can't hold the side-by-side composition. Stack the brand and
+     tagline in flow, and let the building rise out of the bottom edge instead. */
+  .hero{
+    min-height:620px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:14vh var(--pad-x) 36vh;
+  }
+  .hero__sky{ display:none; }
+  .hero__building{
+    width:178vw; min-width:0; right:-4vw; bottom:0; top:auto;
+  }
+  .hero__brand{
+    position:relative; z-index:3;
+    right:auto; left:auto; bottom:auto;
+    width:78vw; min-width:0; max-width:340px;
+  }
+  .hero__tagline{
+    position:relative; z-index:3;
+    left:auto; right:auto; bottom:auto;
+    margin-top:22px; max-width:none; text-align:center;
+    font-size:clamp(19px,5.4vw,27px);
+  }
+  .hero__replay{ bottom:18px; }
+  .hero__cue{ display:none; }
+}
+
+@media (max-width:640px){
+  .nav{ top:10px; gap:12px; padding:8px 14px; }
+  .nav__link{ font-size:10px; letter-spacing:.08em; }
+  .nav__mark{ width:19px; }
+  .welcome__cols{ gap:26px; margin-top:38px; }
+  .offer__seal{ width:76px; height:76px; }
+  .offer__years{ font-size:25px; }
+  .totop{ right:16px; bottom:16px; width:44px; height:44px; }
+}
+
+/* ── reduced motion — everything settles, nothing performs ─── */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .hero__sky,
+  .hero__building,
+  .hero__brand img,
+  .nav,
+  .hero__tagline,
+  .hero__replay,
+  .hero__cue,
+  .hero__cue svg,
+  .contact__grid-bg{ animation:none !important; }
+  .nav{ transform:translateX(-50%); opacity:1; }
+  .card:hover,
+  .btn:hover,
+  .totop:hover{ transform:none; }
+  *,*::before,*::after{ transition-duration:1ms !important; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <img class="nav__mark" src="assets/mark.webp" alt="Staytus Collection" width="22" height="18">
+  <nav aria-label="Primary">
+    <a class="nav__link" href="#top">HOME</a>
+    <a class="nav__link" href="#portfolio">PROJECT</a>
+    <a class="nav__link" href="#team">TEAM</a>
+    <a class="nav__link" href="#contact">CONTACTS</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="hero" id="top" aria-label="Staytus Collection">
+    <div class="hero__sky" aria-hidden="true">
+      <img src="assets/sky.webp" alt="" width="534" height="240">
+    </div>
+
+    <img class="hero__building" src="assets/building.webp"
+         alt="Rouxcor House, 20 Herold Street, Stellenbosch" width="1400" height="933" fetchpriority="high">
+
+    <h1 class="hero__brand">
+      <img src="assets/wordmark.webp" alt="Staytus Collection" width="1100" height="379">
+    </h1>
+
+    <p class="hero__tagline">A Distinctive Approach<br>to Property Development</p>
+
+    <div class="hero__cue" id="cue" aria-hidden="true">
+      <span>Scroll</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 5v14"></path><path d="M5 12l7 7 7-7"></path></svg>
+    </div>
+
+    <button class="hero__replay" id="replay" type="button">Replay</button>
+  </section>
+
+  <!-- ── WELCOME ──────────────────────────────────────────── -->
+  <section class="section section--tint welcome" id="about">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--ink">Welcome to Staytus Collection</p>
+      <h2 class="display welcome__h2">A Distinctive Approach to Property Development</h2>
+
+      <p class="lead welcome__lead">Staytus Collection is a Stellenbosch-based property development and investment company focused on creating exceptional places and long-term value. Having evolved from a boutique developer into a fully integrated development and investment company, Staytus Collection delivers residential, mixed-use, hospitality, and strategic real estate projects while providing development management services to investors, landowners, and partners. Through disciplined execution, strategic partnerships, and a commitment to quality, Staytus Collection develops, manages, and invests in property assets that generate sustainable returns and lasting impact.</p>
+
+      <div class="welcome__cols">
+        <p>Founders Werner Roux and Handré Basson bring 50 years of combined experience in property development. STAYTUS specialises in revitalizing old and historical properties in Cape Town, Stellenbosch, Paarl, and Somerset West. By focusing on these areas, they ensure efficient project management and better oversight.</p>
+        <p>In addition to property development, STAYTUS focuses on building lasting relationships with their professional team, financiers, and property partners. Their work is driven by a passion for creating beautiful spaces, which is reflected in each project. Known for their innovative approach, they develop properties and lifestyles that stand the test of time. The newly introduced “Staytus Living” brand highlights their dedication to providing housing for students, young professionals, and more.</p>
+      </div>
+
+      <p class="welcome__group">Staytus Collection is part of the Rouxcor Group of Companies.</p>
+    </div>
+  </section>
+
+  <!-- ── STATEMENT BAND ───────────────────────────────────── -->
+  <section class="band" aria-label="Our commitment">
+    <p>Choose STAYTUS for a development experience that goes beyond the ordinary, where innovation, passion, and a commitment to lasting beauty define every project.</p>
+    <p class="band__close">Welcome to a realm where properties and lifestyles are crafted for a lifetime.</p>
+  </section>
+
+  <!-- ── WHAT WE OFFER ────────────────────────────────────── -->
+  <section class="section section--dark" id="services">
+    <div class="wrap">
+      <h2 class="eyebrow eyebrow--gold">What We Offer</h2>
+      <hr class="rule">
+
+      <div class="offer__team" id="team">
+        <div class="offer__badge">
+          <div class="offer__seal">
+            <img src="assets/mark.webp" alt="" width="60" height="50">
+          </div>
+          <div>
+            <p class="offer__years">50 Years</p>
+            <p class="offer__years-label">COMBINED EXPERIENCE</p>
+          </div>
+        </div>
+        <div class="offer__claim">
+          <p>A dedicated team led by <em>the two founders</em></p>
+          <p><em>Combined 50 years</em> of experience and wisdom</p>
+          <p>Ten outstanding projects <em>and many more plans</em></p>
+        </div>
+      </div>
+
+      <div class="grid offer__grid">
+
+        <article class="card">
+          <div class="card__head">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke-width="1.6" aria-hidden="true">
+              <rect x="8" y="14" width="8" height="18"></rect><rect x="20" y="6" width="8" height="26"></rect><line x1="6" y1="32" x2="30" y2="32"></line>
+            </svg>
+            <h3 class="card__title">Property Development</h3>
+            <svg class="card__chev" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#D2A83E" stroke-width="1.6" aria-hidden="true"><polyline points="4,2 12,8 4,14"></polyline></svg>
+          </div>
+          <div class="card__body">
+            <p>We collaborate closely with a diverse clientele including proprietors, developers, investors, non-profit organizations, financial institutions, legal professionals, and asset managers to optimize the potential of their real estate portfolios.</p>
+            <p>Our approach entails delivering premium yet cost-effective solutions encompassing construction management, project oversight, entitlement facilitation, and advisory expertise tailored to infrastructure development and investment endeavors.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__head">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke-width="1.6" aria-hidden="true">
+              <polygon points="6,15 18,9 18,27 6,21"></polygon><path d="M18,9 L30,4 L30,32 L18,27"></path><line x1="9" y1="24" x2="9" y2="30"></line>
+            </svg>
+            <h3 class="card__title">Marketing &amp; Advertising</h3>
+            <svg class="card__chev" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#D2A83E" stroke-width="1.6" aria-hidden="true"><polyline points="4,2 12,8 4,14"></polyline></svg>
+          </div>
+          <div class="card__body">
+            <p>Effectively promoting and marketing properties demands a profound comprehension of the sector, a proactive engagement with your unique market dynamics, and a comprehensive strategy aimed at expanding your business footprint while highlighting the exceptional services tailored for both landlords and tenants.</p>
+            <p>Leverage our inbound and outbound marketing solutions crafted specifically for property managers, and witness a notable surge in leads and opportunities.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__head">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke-width="1.6" aria-hidden="true">
+              <circle cx="18" cy="18" r="13"></circle><circle cx="18" cy="18" r="7.5"></circle><circle cx="18" cy="18" r="2" fill="#D2A83E" stroke="none"></circle>
+            </svg>
+            <h3 class="card__title">Specialist Property Services</h3>
+            <svg class="card__chev" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#D2A83E" stroke-width="1.6" aria-hidden="true"><polyline points="4,2 12,8 4,14"></polyline></svg>
+          </div>
+          <div class="card__body">
+            <p>We recognize the dynamic nature of property fundamentals within the real estate landscape, where constant change is the norm. Keeping abreast of evolving demographic profiles and shifting consumer purchasing patterns is essential.</p>
+            <p>Our emphasis lies in harnessing the latent potential of neighborhoods, communities, specialized markets, and regional centers.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PORTFOLIO ────────────────────────────────────────── -->
+  <section class="section section--tint portfolio" id="portfolio">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--ink">Our Portfolio</p>
+      <h2 class="display portfolio__h2">Places we’ve built</h2>
+
+      <div class="grid portfolio__grid">
+
+        <article class="card">
+          <div class="pcard__head"><h3 class="pcard__title">Boland Oval</h3></div>
+          <div class="pcard__slot">
+            <img src="assets/mark.webp" alt="" width="52" height="43">
+            <span>Project photo to follow</span>
+          </div>
+          <div class="pcard__body"><p>Project details coming soon.</p></div>
+        </article>
+
+        <article class="card">
+          <div class="pcard__head"><h3 class="pcard__title">La Luc Properties</h3></div>
+          <div class="pcard__slot">
+            <img src="assets/mark.webp" alt="" width="52" height="43">
+            <span>Project photo to follow</span>
+          </div>
+          <div class="pcard__body"><p>Project details coming soon.</p></div>
+        </article>
+
+        <article class="card">
+          <div class="pcard__head"><h3 class="pcard__title">Longlands Estate</h3></div>
+          <div class="pcard__slot">
+            <img src="assets/mark.webp" alt="" width="52" height="43">
+            <span>Project photo to follow</span>
+          </div>
+          <div class="pcard__body"><p>Project details coming soon.</p></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ──────────────────────────────────────────── -->
+  <section class="contact" id="contact">
+    <div class="contact__grid-bg" aria-hidden="true"></div>
+    <div class="contact__inner">
+
+      <div class="contact__head">
+        <h2 class="display contact__h2">Contact us</h2>
+        <p class="contact__sub">Staytus Collection — 50 Years Combined Experience</p>
+      </div>
+
+      <div class="contact__cols">
+
+        <div>
+          <p class="eyebrow eyebrow--mist">Speak to us</p>
+
+          <p class="reach">
+            <span class="reach__icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M12 21c-4-4.5-7-8-7-11.5A7 7 0 0 1 19 9.5C19 13 16 16.5 12 21z"></path><circle cx="12" cy="9.5" r="2.3"></circle></svg>
+            </span>
+            <span class="reach__text">20 Herold Street, Stellenbosch Central, Stellenbosch, 7600, South Africa</span>
+          </p>
+
+          <p class="reach">
+            <span class="reach__icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M16 12v1.5a3.5 3.5 0 1 0 -3.5-3.5v2"></path><path d="M20 12a8 8 0 1 1 -8-8"></path></svg>
+            </span>
+            <a class="reach__text" href="mailto:info@staytus.co.za">info@staytus.co.za</a>
+          </p>
+
+          <p class="reach">
+            <span class="reach__icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 5c0 8.5 6.5 15 15 15l2-4-5-2-2 2c-2-1-4-3-5-5l2-2-2-5-4 1z"></path></svg>
+            </span>
+            <a class="reach__tel" href="tel:+27211402999">+27 21 140 2999</a>
+          </p>
+
+          <p class="contact__note">or send us an enquiry. We would love to hear from you. Kom ons praat!</p>
+        </div>
+
+        <form class="form" id="enquiry" novalidate>
+          <label class="vh" for="f-name">Your name</label>
+          <input class="field" id="f-name" name="name" type="text" placeholder="Your name" autocomplete="name">
+
+          <label class="vh" for="f-email">Your email</label>
+          <input class="field" id="f-email" name="email" type="email" placeholder="Your email" autocomplete="email">
+
+          <label class="vh" for="f-msg">Your message</label>
+          <textarea class="field" id="f-msg" name="message" rows="3" placeholder="Your message"></textarea>
+
+          <button class="btn" type="submit">Send enquiry</button>
+          <p class="form__status" id="status" role="status" aria-live="polite"></p>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__inner">
+    <p>DISCLAIMER: Every care is taken to ensure that all marketing materials, prices, floor plans, visuals, brochures are correct at the time of issue however these do not constitute property particulars for contractual purposes. Please be sure to check all final materials ahead of signing any purchase contract. Staytus Collection is a subsidiary of Rouxcor Holdings.</p>
+    <p>© Staytus Collection. 2025 All rights reserved</p>
+    <p class="foot__concept">Concept demo — STB Studios</p>
+  </div>
+</footer>
+
+<button class="totop" id="totop" type="button" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path></svg>
+</button>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Staytus Collection",
+  "description": "Stellenbosch-based property development and investment company delivering residential, mixed-use, hospitality and strategic real estate projects.",
+  "parentOrganization": { "@type": "Organization", "name": "Rouxcor Group of Companies" },
+  "email": "info@staytus.co.za",
+  "telephone": "+27211402999",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "20 Herold Street",
+    "addressLocality": "Stellenbosch Central, Stellenbosch",
+    "postalCode": "7600",
+    "addressRegion": "Western Cape",
+    "addressCountry": "ZA"
+  },
+  "areaServed": ["Cape Town", "Stellenbosch", "Paarl", "Somerset West"]
+}
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  var root   = document.documentElement;
+  var calm   = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var SPEED  = 0.75;           // designed stage speed
+  var LOCK   = 3000 * SPEED;   // hold the page still while the hero plays
+  var SEEN   = 'sc_hero_seen_v1';
+
+  /* ── hero stage ─────────────────────────────────────────── */
+  var hero    = document.querySelector('.hero');
+  var replay  = document.getElementById('replay');
+  var cue     = document.getElementById('cue');
+  var locked  = false;
+  var timer   = null;
+
+  function seen() {
+    try { return sessionStorage.getItem(SEEN) === '1'; } catch (e) { return false; }
+  }
+  function markSeen() {
+    try { sessionStorage.setItem(SEEN, '1'); } catch (e) {}
+  }
+
+  var block     = function (e) { e.preventDefault(); };
+  var blockKeys = function (e) {
+    var keys = [' ', 'Spacebar', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'];
+    if (keys.indexOf(e.key) !== -1) e.preventDefault();
+  };
+
+  // Input-level lock only — never touch overflow, so the scrollbar gutter never shifts width.
+  function lock(on) {
+    if (on === locked) return;
+    locked = on;
+    var fn = on ? 'addEventListener' : 'removeEventListener';
+    window[fn]('wheel', block, { passive: false });
+    window[fn]('touchmove', block, { passive: false });
+    window[fn]('keydown', blockKeys, { passive: false });
+  }
+
+  function play(instant) {
+    clearTimeout(timer);
+    root.style.setProperty('--stage', instant ? '0.001' : String(SPEED));
+    if (instant) { lock(false); return; }
+    window.scrollTo(0, 0);
+    lock(true);
+    timer = setTimeout(function () { lock(false); }, LOCK);
+  }
+
+  // Restart the CSS animations by cloning the hero's class state.
+  function restart() {
+    window.scrollTo(0, 0);
+    hero.querySelectorAll('.hero__sky, .hero__building, .hero__brand img, .hero__tagline, .hero__replay, .hero__cue')
+      .forEach(function (el) {
+        var a = el.style.animation;
+        el.style.animation = 'none';
+        void el.offsetWidth;              // force reflow so the animation re-runs
+        el.style.animation = a || '';
+      });
+    if (cue) cue.dataset.gone = '0';
+    play(false);
+  }
+
+  play(calm.matches || seen());
+  markSeen();
+
+  if (replay) replay.addEventListener('click', restart);
+  // A safety net: any deliberate click frees the page even if a timer is lost.
+  window.addEventListener('pointerdown', function () { if (locked) lock(false); }, true);
+
+  /* ── scroll-driven chrome ───────────────────────────────── */
+  var totop = document.getElementById('totop');
+  var ticking = false;
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY || root.scrollTop || 0;
+      totop.dataset.on = y > 400 ? '1' : '0';
+      if (cue) cue.dataset.gone = y > 40 ? '1' : '0';
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  totop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: calm.matches ? 'auto' : 'smooth' });
+  });
+
+  /* ── enquiry form ───────────────────────────────────────── */
+  // No backend is wired. Say so plainly rather than faking a success state.
+  var form   = document.getElementById('enquiry');
+  var status = document.getElementById('status');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    status.textContent =
+      'Demo only — this form is not connected yet. Please email info@staytus.co.za or call +27 21 140 2999.';
+  });
+})();
+</script>
+
+</body>
+</html>

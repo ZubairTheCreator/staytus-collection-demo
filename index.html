@@ -213,7 +213,7 @@ a:hover{ color:var(--gold-lift); }
   overflow:hidden;
   background:radial-gradient(120% 90% at 78% 8%, var(--white) 0%, var(--cream) 52%, var(--cream-2) 100%);
 }
-.hero .seam::before{ transition-delay:calc(3.1s * var(--stage)); }
+.hero .seam::before{ transition-delay:calc(4.05s * var(--stage)); }
 .hero__sky{
   position:absolute; z-index:1; top:0; right:-2vw; height:100%;
   width:63vw; min-width:520px; overflow:hidden;
@@ -237,12 +237,12 @@ a:hover{ color:var(--gold-lift); }
    the clip closes at 100% - 47vw — a cut line that is always hidden behind
    opaque building. */
 .hero__brand{
-  position:absolute; z-index:2; left:0; right:47vw; bottom:130px;
+  position:absolute; z-index:2; left:0; right:47vw; top:96px;
   padding-left:var(--pad-x);
   margin:0; overflow:hidden;
 }
 .hero__brand img{
-  display:block; width:36vw; min-width:240px; max-width:560px; height:auto;
+  display:block; width:46vw; min-width:280px; max-width:760px; height:auto;
   filter:drop-shadow(0 10px 24px rgba(34,44,69,.18));
 }
 
@@ -271,6 +271,13 @@ a:hover{ color:var(--gold-lift); }
   0%  { transform:translate3d(58vw,2vh,0) scale(.95); }
   100%{ transform:translate3d(0,0,0) scale(1); }
 }
+/* Phase two — the settled block travels up to its top-left rest position. The
+   52vh start puts the wordmark inside the building's silhouette at every
+   desktop height, so phase one is genuinely hidden rather than faded. */
+@keyframes scBrandRise{
+  0%  { transform:translate3d(0,52vh,0); }
+  100%{ transform:translate3d(0,0,0); }
+}
 @keyframes scFadeUp{
   0%  { transform:translate3d(0,14px,0); opacity:0; }
   100%{ transform:translate3d(0,0,0); opacity:1; }
@@ -278,9 +285,10 @@ a:hover{ color:var(--gold-lift); }
 
 .hero__sky,
 .hero__building{ animation:scBuildingIn calc(1.6s * var(--stage)) var(--ease-stage) both; }
+.hero__brand{ animation:scBrandRise calc(.95s * var(--stage)) var(--ease-stage) calc(2.65s * var(--stage)) both; }
 .hero__brand img{ animation:scBrandOut calc(1.5s * var(--stage)) var(--ease-stage) calc(1.15s * var(--stage)) both; }
 .nav{ animation:scNavDrop calc(.85s * var(--stage)) var(--ease-out) calc(2.2s * var(--stage)) both; }
-.hero__tagline{ animation:scFadeUp calc(1.1s * var(--stage)) var(--ease-out) calc(2.7s * var(--stage)) both; }
+.hero__tagline{ animation:scFadeUp calc(1.1s * var(--stage)) var(--ease-out) calc(3.65s * var(--stage)) both; }
 
 /* ── welcome ───────────────────────────────────────────────── */
 .welcome{ text-align:center; }
@@ -493,6 +501,7 @@ textarea.field{ resize:vertical; min-height:96px; }
     right:auto; left:auto; bottom:auto;
     width:78vw; min-width:0; max-width:340px;
     padding-left:0; overflow:visible;
+    top:auto; animation:none;
   }
   .hero__brand img{ width:100%; min-width:0; max-width:none; }
   .hero__tagline{
@@ -518,6 +527,7 @@ textarea.field{ resize:vertical; min-height:96px; }
   html{ scroll-behavior:auto; }
   .hero__sky,
   .hero__building,
+  .hero__brand,
   .hero__brand img,
   .nav,
   .hero__tagline{ animation:none !important; }
@@ -804,7 +814,7 @@ textarea.field{ resize:vertical; min-height:96px; }
   var root  = document.documentElement;
   var calm  = window.matchMedia('(prefers-reduced-motion: reduce)');
   var SPEED = 0.75;           // designed stage speed
-  var LOCK  = 3300 * SPEED;   // hold the page still while the hero plays
+  var LOCK  = 4300 * SPEED;   // hold the page still while the hero plays
 
   /* ── hero stage ─────────────────────────────────────────── */
   var locked = false;

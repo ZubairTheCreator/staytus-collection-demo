@@ -167,6 +167,18 @@ a:hover{ color:var(--gold-lift); }
 .section--tint{ background:var(--cream); }
 .section--dark{ background:var(--navy); }
 
+/* A section photo sits under the content with a wash of the section's own
+   tone over it — enough to keep body copy at full contrast. */
+.section--photo{ overflow:hidden; }
+.section--photo > .wrap{ position:relative; z-index:1; }
+.section__photo{
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-position:center; background-size:cover;
+}
+.section__photo::after{ content:""; position:absolute; inset:0; }
+.section--tint .section__photo::after{ background:rgba(250,249,246,.91); }
+.section--dark .section__photo::after{ background:rgba(34,44,69,.90); }
+
 /* ── site header ───────────────────────────────────────────── */
 .nav{
   position:fixed; top:16px; left:50%; z-index:50;
@@ -368,14 +380,11 @@ a:hover{ color:var(--gold-lift); }
   background:var(--navy-2); padding:var(--sec-y-sm) var(--pad-x) 40px;
   scroll-margin-top:76px;
 }
-.contact__grid-bg{
+.contact__photo{
   position:absolute; inset:0; pointer-events:none;
-  background-image:linear-gradient(var(--gold-grid) 1px,transparent 1px),
-                   linear-gradient(90deg,var(--gold-grid) 1px,transparent 1px);
-  background-size:48px 48px;
-  animation:gridDrift 18s linear infinite;
+  background:url("assets/contact-bg.webp") center/cover no-repeat;
 }
-@keyframes gridDrift{ from{ background-position:0 0; } to{ background-position:48px 48px; } }
+.contact__photo::after{ content:""; position:absolute; inset:0; background:rgba(34,44,69,.86); }
 
 .contact__inner{ position:relative; z-index:1; max-width:1080px; margin-inline:auto; }
 .contact__head{ text-align:center; }
@@ -511,8 +520,7 @@ textarea.field{ resize:vertical; min-height:96px; }
   .hero__building,
   .hero__brand img,
   .nav,
-  .hero__tagline,
-  .contact__grid-bg{ animation:none !important; }
+  .hero__tagline{ animation:none !important; }
   .seam::before{ transform:scaleX(1) !important; transition:none !important; }
   .nav{ transform:translateX(-50%); opacity:1; }
   .card:hover,
@@ -557,7 +565,8 @@ textarea.field{ resize:vertical; min-height:96px; }
   </section>
 
   <!-- ── WELCOME ──────────────────────────────────────────── -->
-  <section class="section section--tint welcome" id="about">
+  <section class="section section--tint section--photo welcome" id="about">
+    <div class="section__photo" style="background-image:url(&quot;assets/welcome-bg.webp&quot;)" aria-hidden="true"></div>
     <div class="wrap">
       <p class="eyebrow eyebrow--ink">Welcome to Staytus Collection</p>
       <h2 class="display welcome__h2">A Distinctive Approach to Property Development</h2>
@@ -582,7 +591,8 @@ textarea.field{ resize:vertical; min-height:96px; }
   </section>
 
   <!-- ── WHAT WE OFFER ────────────────────────────────────── -->
-  <section class="section section--dark" id="services">
+  <section class="section section--dark section--photo" id="services">
+    <div class="section__photo" style="background-image:url(&quot;assets/offer-bg.webp&quot;)" aria-hidden="true"></div>
     <div class="wrap">
       <h2 class="eyebrow eyebrow--gold">What We Offer</h2>
       <hr class="rule">
@@ -695,7 +705,7 @@ textarea.field{ resize:vertical; min-height:96px; }
 
   <!-- ── CONTACT ──────────────────────────────────────────── -->
   <section class="contact" id="contact">
-    <div class="contact__grid-bg" aria-hidden="true"></div>
+    <div class="contact__photo" aria-hidden="true"></div>
     <div class="contact__inner">
 
       <div class="contact__head">

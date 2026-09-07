@@ -18,7 +18,7 @@
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/building.webp">
 
 <style>
@@ -54,7 +54,7 @@
   --display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --body:    'Work Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
 
-  --t-hero:    clamp(19px, 2.15vw, 34px);
+  --t-hero:    clamp(24px, 2.9vw, 46px);
   --t-h2:      clamp(26px, 3.1vw, 40px);
   --t-h3:      clamp(20px, 1.7vw, 24px);
   --t-lead:    clamp(16px, 1.15vw, 17.5px);
@@ -211,45 +211,41 @@ a:hover{ color:var(--gold-lift); }
   position:relative; width:100%;
   height:100vh; height:100dvh; min-height:560px;
   overflow:hidden;
-  background:radial-gradient(120% 90% at 78% 8%, var(--white) 0%, var(--cream) 52%, var(--cream-2) 100%);
+  background:radial-gradient(120% 90% at 50% 2%, var(--white) 0%, var(--cream) 52%, var(--cream-2) 100%);
 }
 .hero .seam::before{ transition-delay:calc(4.05s * var(--stage)); }
 .hero__sky{
-  position:absolute; z-index:1; top:0; right:-2vw; height:100%;
-  width:63vw; min-width:520px; overflow:hidden;
-  -webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.5) 16%,#000 34%),
-                     linear-gradient(to bottom,transparent 0%,#000 22%,#000 74%,transparent 100%);
-          mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.5) 16%,#000 34%),
-                     linear-gradient(to bottom,transparent 0%,#000 22%,#000 74%,transparent 100%);
-  -webkit-mask-composite:source-in; mask-composite:intersect;
+  position:absolute; z-index:0; inset:0; overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.32) 24%,#000 58%);
+          mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.32) 24%,#000 58%);
 }
-.hero__sky img{ display:block; width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
+.hero__sky img{ display:block; width:100%; height:100%; object-fit:cover; object-position:50% 60%; }
 
+/* The cutout's left edge is a hard crop through the neighbouring house. Dissolve
+   it so the composition starts in sky rather than in a rectangle. */
 .hero__building{
-  position:absolute; z-index:3; right:-2vw; bottom:0;
-  width:63vw; min-width:520px; height:auto;
+  position:absolute; z-index:3; right:-3vw; bottom:0;
+  width:58vw; min-width:520px; height:auto;
+  -webkit-mask-image:linear-gradient(to left,#000 90%,rgba(0,0,0,.65) 96%,transparent 100%);
+          mask-image:linear-gradient(to left,#000 90%,rgba(0,0,0,.65) 96%,transparent 100%);
 }
 
-/* The wordmark slides out from behind the building, so it sits under it (z-index
-   2 vs 3) AND is clipped here. The building's own left edge is only ~60% opaque
-   where the wordmark crosses it, so z-order alone would let it ghost through.
-   The building starts at 100% - 61vw and is fully solid ~22% into its width, so
-   the clip closes at 100% - 47vw — a cut line that is always hidden behind
-   opaque building. */
-.hero__brand{
-  position:absolute; z-index:2; left:0; right:47vw; top:96px;
+/* Brand + tagline share one top-left block so the tagline always sits directly
+   under the settled wordmark. z-index 2 keeps it under the building, which is
+   what lets the wordmark travel up from behind the facade. */
+.hero__copy{
+  position:absolute; z-index:2; left:0; top:96px;
   padding-left:var(--pad-x);
-  margin:0; overflow:hidden;
 }
+.hero__brand{ margin:0; }
 .hero__brand img{
   display:block; width:46vw; min-width:280px; max-width:760px; height:auto;
   filter:drop-shadow(0 10px 24px rgba(34,44,69,.18));
 }
 
 .hero__tagline{
-  position:absolute; z-index:4; left:var(--pad-x); bottom:70px;
-  max-width:min(40vw,460px);
-  font-family:var(--display); font-weight:300; font-style:normal;
+  margin:26px 0 0; max-width:min(46vw,560px);
+  font-family:var(--display); font-weight:700; font-style:normal;
   font-size:var(--t-hero); line-height:1.24; letter-spacing:.015em;
   color:var(--ink); text-wrap:pretty;
 }
@@ -261,34 +257,32 @@ a:hover{ color:var(--gold-lift); }
   100%{ transform:translate(-50%,0); opacity:1; }
 }
 @keyframes scBuildingIn{
-  0%  { transform:translate3d(-118%,0,0) scale(1.04); opacity:0; }
+  0%  { transform:translate3d(118%,0,0) scale(1.04); opacity:0; }
   18% { opacity:1; }
   100%{ transform:translate3d(0,0,0) scale(1); opacity:1; }
 }
-/* Starts past the clip edge (100% - 47vw), so it is genuinely hidden rather than
-   faded out — 58vw clears it at every desktop width. */
-@keyframes scBrandOut{
-  0%  { transform:translate3d(58vw,2vh,0) scale(.95); }
-  100%{ transform:translate3d(0,0,0) scale(1); }
-}
-/* Phase two — the settled block travels up to its top-left rest position. The
-   52vh start puts the wordmark inside the building's silhouette at every
-   desktop height, so phase one is genuinely hidden rather than faded. */
-@keyframes scBrandRise{
-  0%  { transform:translate3d(0,52vh,0); }
-  100%{ transform:translate3d(0,0,0); }
+@keyframes scSkyIn{ 0%{ opacity:0; } 100%{ opacity:1; } }
+/* One diagonal move. The start pose sits down and to the right of the rest
+   position, tucked inside the facade — z-index 2 keeps it under the building —
+   and the wordmark rides up-left, clearing the roofline into open sky. The
+   opacity hold covers the first stretch, where the cutout's tree canopy is only
+   part-opaque and would otherwise let it ghost through. */
+@keyframes scBrandSweep{
+  0%  { transform:translate3d(48vw,50vh,0) scale(.82); opacity:0; }
+  16% { opacity:0; }
+  52% { opacity:1; }
+  100%{ transform:translate3d(0,0,0) scale(1); opacity:1; }
 }
 @keyframes scFadeUp{
   0%  { transform:translate3d(0,14px,0); opacity:0; }
   100%{ transform:translate3d(0,0,0); opacity:1; }
 }
 
-.hero__sky,
+.hero__sky{ animation:scSkyIn calc(1.9s * var(--stage)) var(--ease-out) both; }
 .hero__building{ animation:scBuildingIn calc(1.6s * var(--stage)) var(--ease-stage) both; }
-.hero__brand{ animation:scBrandRise calc(.95s * var(--stage)) var(--ease-stage) calc(2.65s * var(--stage)) both; }
-.hero__brand img{ animation:scBrandOut calc(1.5s * var(--stage)) var(--ease-stage) calc(1.15s * var(--stage)) both; }
+.hero__brand img{ animation:scBrandSweep calc(2.4s * var(--stage)) cubic-bezier(.36,.03,.16,1) calc(1.1s * var(--stage)) both; }
 .nav{ animation:scNavDrop calc(.85s * var(--stage)) var(--ease-out) calc(2.2s * var(--stage)) both; }
-.hero__tagline{ animation:scFadeUp calc(1.1s * var(--stage)) var(--ease-out) calc(3.65s * var(--stage)) both; }
+.hero__tagline{ animation:scFadeUp calc(1.1s * var(--stage)) var(--ease-out) calc(3.6s * var(--stage)) both; }
 
 /* ── welcome ───────────────────────────────────────────────── */
 .welcome{ text-align:center; }
@@ -492,23 +486,18 @@ textarea.field{ resize:vertical; min-height:96px; }
     display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
     padding:14vh var(--pad-x) 36vh;
   }
-  .hero__sky{ display:none; }
   .hero__building{
-    width:178vw; min-width:0; right:-4vw; bottom:0; top:auto;
+    width:150vw; min-width:0; right:-28vw; left:auto; bottom:0;
   }
-  .hero__brand{
+  .hero__copy{
     position:relative; z-index:3;
-    right:auto; left:auto; bottom:auto;
+    left:auto; top:auto; padding-left:0;
     width:78vw; min-width:0; max-width:340px;
-    padding-left:0; overflow:visible;
-    top:auto; animation:none;
   }
-  .hero__brand img{ width:100%; min-width:0; max-width:none; }
+  .hero__brand img{ width:100%; min-width:0; max-width:none; animation:none; }
   .hero__tagline{
-    position:relative; z-index:3;
-    left:auto; right:auto; bottom:auto;
     margin-top:22px; max-width:none; text-align:left;
-    font-size:clamp(19px,5.4vw,27px);
+    font-size:clamp(22px,6.2vw,32px);
   }
 }
 
@@ -527,7 +516,6 @@ textarea.field{ resize:vertical; min-height:96px; }
   html{ scroll-behavior:auto; }
   .hero__sky,
   .hero__building,
-  .hero__brand,
   .hero__brand img,
   .nav,
   .hero__tagline{ animation:none !important; }
@@ -559,17 +547,18 @@ textarea.field{ resize:vertical; min-height:96px; }
   <!-- ── HERO ─────────────────────────────────────────────── -->
   <section class="hero" id="top" aria-label="Staytus Collection">
     <div class="hero__sky" aria-hidden="true">
-      <img src="assets/sky.webp" alt="" width="534" height="240">
+      <img src="assets/sky.webp" alt="" width="1672" height="941">
     </div>
 
     <img class="hero__building" src="assets/building.webp"
          alt="Rouxcor House, 20 Herold Street, Stellenbosch" width="1400" height="933" fetchpriority="high">
 
-    <h1 class="hero__brand">
-      <img src="assets/wordmark.webp" alt="Staytus Collection" width="1100" height="370">
-    </h1>
-
-    <p class="hero__tagline">A Distinctive Approach<br>to Property Development</p>
+    <div class="hero__copy">
+      <h1 class="hero__brand">
+        <img src="assets/wordmark.webp" alt="Staytus Collection" width="1100" height="370">
+      </h1>
+      <p class="hero__tagline">A Distinctive Approach<br>to Property Development</p>
+    </div>
 
     <i class="seam" aria-hidden="true"></i>
   </section>
